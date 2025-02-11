@@ -21,7 +21,7 @@ router.post("/print", userTemplate);
 router.post("/cart/add", addToCart);
 
 router.get("/products", getAllProducts);
-router.get("/prouduct/:id", getSingleProdcut);
+router.get("/product/:id", getSingleProdcut);
 router.post("/webhook/validate", webHookUrk);
 
 module.exports = router;

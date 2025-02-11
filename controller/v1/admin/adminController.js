@@ -26,13 +26,24 @@ exports.userRoleUpdate = async (req, res) => {
 exports.showLogs = (req, res) => {
   try {
     // Path to the log file (adjust based on your setup)
-    const logFilePath = path.join(__dirname, "..", "../../logs", "server.log");
+    const logFilePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "logs",
+      "server.log"
+    );
 
     // Read the log file content
     const logs = fs.readFileSync(logFilePath, "utf8");
 
+    // Split logs into lines and get the last 100 lines
+    const logLines = logs.trim().split("\n");
+    const last100Lines = logLines.slice(-100).join("\n");
+
     // Return logs to the user
-    res.status(200).json({ logs });
+    res.status(200).json({ logs: last100Lines });
   } catch (error) {
     // Handle error (e.g., log file not found)
     res.status(500).json({

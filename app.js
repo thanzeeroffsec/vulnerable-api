@@ -22,6 +22,7 @@ const logger = winston.createLogger({
 });
 
 const app = express();
+app.use(express.urlencoded({ extended: true })); // Enables URL-encoded form data parsing
 
 // Middleware to log request and response details
 app.use((req, res, next) => {

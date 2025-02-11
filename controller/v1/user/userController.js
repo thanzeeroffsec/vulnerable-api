@@ -32,15 +32,24 @@ exports.userLogin = async (req, res) => {
   const clientIp =
     req.headers["x-real-ip"] || req.headers["x-forwarded-for"] || req.ip;
 
-  // Format IP address to simulate IPv6 or complex address
   const formattedIp = clientIp.includes(":")
     ? clientIp.split(",")[0]
     : clientIp;
 
+  console.log("here test .....");
+
+  if (req.headers["content-type"] !== "application/json") {
+    return res.status(400).json({
+      message: "Invalid request format ! content type json is required",
+    });
+  }
+
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(401).json({ message: "Invalid username or password" });
+    return res
+      .status(401)
+      .json({ message: "username and password is required " });
   }
 
   if (!rateLimits[formattedIp]) {
